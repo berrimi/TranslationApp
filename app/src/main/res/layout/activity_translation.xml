@@ -1,95 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_translation"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/main_translation"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".TranslationActivity">
+
+  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TranslationActivity">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="top">
+
+    <TextView
+      android:id="@+id/tv_instruction"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/instruction_translate"
+      android:textSize="18sp"
+      android:textStyle="bold"
+      android:layout_marginBottom="8dp" />
+
+    <EditText
+      android:id="@+id/et_input_text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/hint_type_here"
+      android:minHeight="100dp"
+      android:gravity="top"
+      android:inputType="textMultiLine"
+      android:padding="12dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="top">
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginTop="16dp"
+      android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tv_instruction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/instruction_translate"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_to"
+        android:textSize="16sp"
+        android:layout_marginStart="16dp" />
 
-        <EditText
-            android:id="@+id/et_input_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_type_here"
-            android:minHeight="100dp"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:padding="12dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_from"
-                android:textSize="16sp"/>
-
-            <EditText
-                android:id="@+id/et_from_lang"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/default_from_lang"
-                android:inputType="text"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                android:text="@string/default_from_lang" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_to"
-                android:textSize="16sp"
-                android:layout_marginStart="16dp"/>
-
-            <EditText
-                android:id="@+id/et_to_lang"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/default_to_lang"
-                android:inputType="text"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                android:text="@string/default_to_lang" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_translate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/button_translate"
-            android:layout_marginTop="16dp"/>
-
-        <TextView
-            android:id="@+id/tv_result"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            android:minHeight="100dp"
-            android:padding="12dp"/>
+      <AutoCompleteTextView
+        android:id="@+id/et_to_lang"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/default_to_lang"
+        android:inputType="text"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:completionThreshold="0"
+          android:selectAllOnFocus="true"
+        android:text="@string/default_to_lang" />
 
     </LinearLayout>
+
+    <Button
+      android:id="@+id/btn_translate"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/button_translate"
+      android:layout_marginTop="16dp" />
+
+    <TextView
+      android:id="@+id/tv_result"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:textSize="18sp"
+      android:minHeight="100dp"
+      android:padding="12dp" />
+
+  </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
