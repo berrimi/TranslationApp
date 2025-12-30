@@ -1,9 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.TranslationApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.TranslationApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primary_600</item>
+        <item name="colorPrimaryVariant">@color/primary_800</item>
+        <item name="colorOnPrimary">@color/on_primary_light</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/secondary_color</item>
+        <item name="colorSecondaryVariant">@color/secondary_dark</item>
+        <item name="colorOnSecondary">@color/on_secondary_light</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar_light</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:navigationBarColor">@color/background_light</item>
+
+        <!-- Background and surface -->
+        <item name="android:colorBackground">@color/background_light</item>
+        <item name="colorSurface">@color/surface_light</item>
+        <item name="colorOnBackground">@color/on_background_light</item>
+        <item name="colorOnSurface">@color/on_surface_light</item>
+
+        <!-- Error colors -->
+        <item name="colorError">@color/error_light</item>
+        <item name="colorOnError">@color/on_error_light</item>
+
+        <!-- Widget styling -->
+        <item name="android:textColorPrimary">@color/text_primary_light</item>
+        <item name="android:textColorSecondary">@color/text_secondary_light</item>
+        <item name="android:textColorHint">@color/text_hint_light</item>
+
+        <!-- Button styling -->
+        <item name="materialButtonStyle">@style/Widget.App.Button.Primary</item>
+        <item name="borderlessButtonStyle">@style/Widget.App.Button.Borderless</item>
+
+        <!-- TextInputLayout styling -->
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+
+        <!-- ProgressBar styling -->
+        <item name="android:progressBarStyleHorizontal">@style/Widget.App.ProgressBar.Horizontal</item>
+
+        <!-- Switch styling -->
+        <item name="switchStyle">@style/Widget.App.Switch</item>
+
+        <!-- Checkbox styling -->
+        <item name="checkboxStyle">@style/Widget.App.Checkbox</item>
+
+        <!-- RadioButton styling -->
+        <item name="radioButtonStyle">@style/Widget.App.RadioButton</item>
+
+        <!-- AppBar styling -->
+        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+
+        <!-- Shape theming -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent</item>
     </style>
 
-    <style name="Theme.TranslationApp" parent="Base.Theme.TranslationApp" />
+    <!-- Primary Button Style -->
+    <style name="Widget.App.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primary_600</item>
+        <item name="android:textColor">@color/on_primary_light</item>
+        <item name="cornerRadius">18dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:stateListAnimator">@animator/button_state_list_animator</item>
+    </style>
+
+    <!-- Borderless Button Style -->
+    <style name="Widget.App.Button.Borderless" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/primary_600</item>
+        <item name="rippleColor">@color/selection_light</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- TextInputLayout Style -->
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/surface_light</item>
+        <item name="boxStrokeColor">@color/primary_200</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="hintTextColor">@color/primary_400</item>
+        <item name="android:textColorHint">@color/text_hint_light</item>
+        <item name="errorTextColor">@color/error_light</item>
+    </style>
+
+    <!-- ProgressBar Style -->
+    <style name="Widget.App.ProgressBar.Horizontal" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressBackgroundTint">@color/progress_background_light</item>
+        <item name="android:progressTint">@color/progress_primary_light</item>
+        <item name="android:secondaryProgressTint">@color/progress_secondary_light</item>
+        <item name="android:minHeight">8dp</item>
+        <item name="android:maxHeight">8dp</item>
+    </style>
+
+    <!-- Switch Style -->
+    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="trackColor">@color/primary_200</item>
+        <item name="thumbColor">@color/primary_600</item>
+    </style>
+
+    <!-- Checkbox Style -->
+    <style name="Widget.App.Checkbox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/primary_600</item>
+    </style>
+
+    <!-- RadioButton Style -->
+    <style name="Widget.App.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="buttonTint">@color/primary_600</item>
+    </style>
+
+    <!-- Toolbar Style -->
+    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextColor">@color/text_primary_light</item>
+        <item name="subtitleTextColor">@color/text_secondary_light</item>
+        <item name="android:background">@color/surface_light</item>
+        <item name="elevation">4dp</item>
+    </style>
+
+    <!-- Shape Appearances -->
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
 </resources>

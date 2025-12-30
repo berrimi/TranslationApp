@@ -1,7 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.TranslationApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <!-- Base application theme for dark mode -->
+    <style name="Theme.TranslationApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primary_400</item>
+        <item name="colorPrimaryVariant">@color/primary_600</item>
+        <item name="colorOnPrimary">@color/on_primary_dark</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/secondary_light</item>
+        <item name="colorSecondaryVariant">@color/secondary_color</item>
+        <item name="colorOnSecondary">@color/on_secondary_dark</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar_dark</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:navigationBarColor">@color/background_dark</item>
+
+        <!-- Background and surface -->
+        <item name="android:colorBackground">@color/background_dark</item>
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorOnBackground">@color/on_background_dark</item>
+        <item name="colorOnSurface">@color/on_surface_dark</item>
+
+        <!-- Error colors -->
+        <item name="colorError">@color/error_dark</item>
+        <item name="colorOnError">@color/on_error_dark</item>
+
+        <!-- Widget styling -->
+        <item name="android:textColorPrimary">@color/text_primary_dark</item>
+        <item name="android:textColorSecondary">@color/text_secondary_dark</item>
+        <item name="android:textColorHint">@color/text_hint_dark</item>
+
+        <!-- Button styling -->
+        <item name="materialButtonStyle">@style/Widget.App.Button.Primary.Dark</item>
+        <item name="borderlessButtonStyle">@style/Widget.App.Button.Borderless.Dark</item>
+
+        <!-- TextInputLayout styling -->
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout.Dark</item>
+
+        <!-- ProgressBar styling -->
+        <item name="android:progressBarStyleHorizontal">@style/Widget.App.ProgressBar.Horizontal.Dark</item>
+
+        <!-- AppBar styling -->
+        <item name="toolbarStyle">@style/Widget.App.Toolbar.Dark</item>
+    </style>
+
+    <!-- Dark Theme Primary Button -->
+    <style name="Widget.App.Button.Primary.Dark" parent="Widget.App.Button.Primary">
+        <item name="backgroundTint">@color/primary_600</item>
+        <item name="android:textColor">@color/on_primary_dark</item>
+        <item name="rippleColor">@color/selection_dark</item>
+    </style>
+
+    <!-- Dark Theme Borderless Button -->
+    <style name="Widget.App.Button.Borderless.Dark" parent="Widget.App.Button.Borderless">
+        <item name="android:textColor">@color/primary_400</item>
+        <item name="rippleColor">@color/selection_dark</item>
+    </style>
+
+    <!-- Dark Theme TextInputLayout -->
+    <style name="Widget.App.TextInputLayout.Dark" parent="Widget.App.TextInputLayout">
+        <item name="boxBackgroundColor">@color/surface_dark</item>
+        <item name="boxStrokeColor">@color/primary_500</item>
+        <item name="hintTextColor">@color/primary_300</item>
+        <item name="android:textColorHint">@color/text_hint_dark</item>
+        <item name="errorTextColor">@color/error_dark</item>
+    </style>
+
+    <!-- Dark Theme ProgressBar -->
+    <style name="Widget.App.ProgressBar.Horizontal.Dark" parent="Widget.App.ProgressBar.Horizontal">
+        <item name="android:progressBackgroundTint">@color/progress_background_dark</item>
+        <item name="android:progressTint">@color/progress_primary_dark</item>
+        <item name="android:secondaryProgressTint">@color/progress_secondary_dark</item>
+    </style>
+
+    <!-- Dark Theme Switch -->
+    <style name="Widget.App.Switch.Dark" parent="Widget.App.Switch">
+        <item name="trackColor">@color/primary_400</item>
+        <item name="thumbColor">@color/primary_200</item>
+    </style>
+
+    <!-- Dark Theme Checkbox -->
+    <style name="Widget.App.Checkbox.Dark" parent="Widget.App.Checkbox">
+        <item name="buttonTint">@color/primary_400</item>
+    </style>
+
+    <!-- Dark Theme RadioButton -->
+    <style name="Widget.App.RadioButton.Dark" parent="Widget.App.RadioButton">
+        <item name="buttonTint">@color/primary_400</item>
+    </style>
+
+    <!-- Dark Theme Toolbar -->
+    <style name="Widget.App.Toolbar.Dark" parent="Widget.App.Toolbar">
+        <item name="titleTextColor">@color/text_primary_dark</item>
+        <item name="subtitleTextColor">@color/text_secondary_dark</item>
+        <item name="android:background">@color/surface_dark</item>
     </style>
 </resources>

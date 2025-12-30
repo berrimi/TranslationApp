@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Your existing colors -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="link_blue">#19BFBF</color>
+
+    <!-- Primary Color Palette based on #c1272d -->
+    <color name="primary_color">#c1272d</color>
+    <color name="primary_light">#e64a4a</color>
+    <color name="primary_dark">#8a1c21</color>
+
+    <!-- Primary Color Variants (Material Design shades) -->
+    <color name="primary_50">#fde8e9</color>
+    <color name="primary_100">#fac5c7</color>
+    <color name="primary_200">#f79fa2</color>
+    <color name="primary_300">#f4797d</color>
+    <color name="primary_400">#f15d62</color>
+    <color name="primary_500">#ef4147</color>
+    <color name="primary_600">#c1272d</color> <!-- Your exact color -->
+    <color name="primary_700">#a92228</color>
+    <color name="primary_800">#911c22</color>
+    <color name="primary_900">#6a1519</color>
+
+    <!-- Secondary/Action Colors (Complementary) -->
+    <color name="secondary_color">#2d8bc1</color> <!-- Blue complement -->
+    <color name="secondary_light">#4fa3d9</color>
+    <color name="secondary_dark">#1f6399</color>
+
+    <!-- Light Theme Specific Colors -->
+    <color name="background_light">#f9fafb</color>
+    <color name="surface_light">#ffffff</color>
+    <color name="error_light">#ba1a1a</color>
+
+    <!-- On Colors (Text on backgrounds) -->
+    <color name="on_primary_light">#ffffff</color>
+    <color name="on_secondary_light">#ffffff</color>
+    <color name="on_background_light">#1c1b1f</color>
+    <color name="on_surface_light">#1c1b1f</color>
+    <color name="on_error_light">#ffffff</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary_light">#1c1b1f</color>
+    <color name="text_secondary_light">#49454f</color>
+    <color name="text_disabled_light">#79747e</color>
+    <color name="text_hint_light">#9e9e9e</color>
+
+    <!-- Border/Divider Colors -->
+    <color name="border_light">#e0e0e0</color>
+    <color name="divider_light">#e5e7eb</color>
+
+    <!-- Status Bar -->
+    <color name="status_bar_light">#8a1c21</color>
+
+    <!-- Progress Bar Colors -->
+    <color name="progress_background_light">#e5e7eb</color>
+    <color name="progress_primary_light">@color/primary_400</color>
+    <color name="progress_secondary_light">@color/primary_200</color>
+
+    <!-- Ripple/Selection Colors -->
+    <color name="ripple_light">#1f000000</color>
+    <color name="selection_light">#1ac1272d</color>
+
+    <!-- Link Color -->
+    <color name="link_blue">#2196F3</color>
 </resources>

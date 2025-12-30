@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FFFFFFFF</color>
-    <color name="white">#FF000000</color>
-    <color name="link_blue">#19BFBF</color>
+    <!-- Dark theme versions of existing colors -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FFBB86FC</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF03DAC5</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary colors (same hex, different usage) -->
+    <color name="primary_color">#c1272d</color>
+    <color name="primary_light">#f4797d</color> <!-- Brighter for dark theme -->
+    <color name="primary_dark">#8a1c21</color>
+
+    <!-- Primary Variants (adjusted for dark theme) -->
+    <color name="primary_50">#2a1a1b</color>
+    <color name="primary_100">#4a2527</color>
+    <color name="primary_200">#6a3033</color>
+    <color name="primary_300">#8a3b3f</color>
+    <color name="primary_400">#aa464b</color>
+    <color name="primary_500">#c1272d</color>
+    <color name="primary_600">#d93a40</color>
+    <color name="primary_700">#e64a4a</color>
+    <color name="primary_800">#f15d62</color>
+    <color name="primary_900">#f79fa2</color>
+
+    <!-- Secondary Colors -->
+    <color name="secondary_color">#64b5f6</color> <!-- Brighter blue for dark theme -->
+    <color name="secondary_light">#90caf9</color>
+    <color name="secondary_dark">#1f6399</color>
+
+    <!-- Dark Theme Specific Colors -->
+    <color name="background_dark">#121212</color>
+    <color name="surface_dark">#1e1e1e</color>
+    <color name="error_dark">#cf6679</color>
+
+    <!-- On Colors for Dark Theme -->
+    <color name="on_primary_dark">#000000</color>
+    <color name="on_secondary_dark">#000000</color>
+    <color name="on_background_dark">#e6e1e5</color>
+    <color name="on_surface_dark">#e6e1e5</color>
+    <color name="on_error_dark">#000000</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary_dark">#e6e1e5</color>
+    <color name="text_secondary_dark">#cac4d0</color>
+    <color name="text_disabled_dark">#938f99</color>
+    <color name="text_hint_dark">#666666</color>
+
+    <!-- Border/Divider Colors -->
+    <color name="border_dark">#2d2d2d</color>
+    <color name="divider_dark">#2a2a2a</color>
+
+    <!-- Status Bar -->
+    <color name="status_bar_dark">#000000</color>
+
+    <!-- Progress Bar Colors -->
+    <color name="progress_background_dark">#2d2d2d</color>
+    <color name="progress_primary_dark">@color/primary_300</color>
+    <color name="progress_secondary_dark">@color/primary_500</color>
+
+    <!-- Ripple/Selection Colors -->
+    <color name="ripple_dark">#33ffffff</color>
+    <color name="selection_dark">#33c1272d</color>
+
+    <!-- Link Color -->
+    <color name="link_blue">#64b5f6</color>
 </resources>

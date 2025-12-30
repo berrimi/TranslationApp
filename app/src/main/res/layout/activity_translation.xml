@@ -1,86 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/main_translation"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="#f9fafb"
-  tools:context=".TranslationActivity">
-
-  <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_translation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="top">
+    android:background="?android:attr/colorBackground"
+    tools:context=".TranslationActivity">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:padding="16dp"
+      android:gravity="top">
 
     <TextView
-      android:id="@+id/tv_instruction"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/instruction_translate"
-      android:textSize="18sp"
-      android:textStyle="bold"
-      android:layout_marginBottom="8dp" />
-
-    <EditText
-      android:id="@+id/et_input_text"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/hint_type_here"
-      android:minHeight="100dp"
-      android:gravity="top"
-      android:inputType="textMultiLine"
-      android:padding="12dp" />
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_marginTop="16dp"
-      android:gravity="center_vertical">
-
-      <TextView
+        android:id="@+id/tv_instruction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/label_to"
-        android:textSize="16sp"
-        android:layout_marginStart="16dp" />
+        android:text="@string/instruction_translate"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_marginBottom="8dp" />
 
-      <AutoCompleteTextView
-        android:id="@+id/et_to_lang"
-        android:layout_width="150dp"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.App.TextInputLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/default_to_lang"
-        android:inputType="text"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:completionThreshold="0"
-          android:selectAllOnFocus="true"
-        android:text="@string/default_to_lang" />
+        android:hint="@string/hint_type_here">
+
+      <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/et_input_text"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:minHeight="100dp"
+          android:gravity="top"
+          android:inputType="textMultiLine"
+          android:textColor="?android:attr/textColorPrimary" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/label_to"
+          android:textSize="16sp"
+          android:textColor="?android:attr/textColorSecondary"
+          android:layout_marginStart="16dp" />
+
+      <com.google.android.material.textfield.TextInputLayout
+          style="@style/Widget.App.TextInputLayout"
+          android:layout_width="150dp"
+          android:layout_height="wrap_content"
+          android:hint="@string/default_to_lang"
+          app:endIconMode="dropdown_menu">
+
+        <AutoCompleteTextView
+            android:id="@+id/et_to_lang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:minHeight="48dp"
+            android:completionThreshold="0"
+            android:text="@string/default_to_lang"
+            android:textColor="?android:attr/textColorPrimary" />
+
+      </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
-    <Button
-      android:id="@+id/btn_translate"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@string/button_translate"
-      android:backgroundTint="#c1272d"
-      app:cornerRadius="18px"
-      android:layout_marginHorizontal="12dp"
-      android:layout_marginTop="16dp" />
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Widget.App.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:visibility="gone" />
 
-    <TextView
-      android:id="@+id/tv_result"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:textSize="18sp"
-      android:minHeight="100dp"
-      android:padding="12dp" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_translate"
+        style="@style/Widget.App.Button.Primary"
+        android:layout_width="213dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="@string/button_translate"
+        app:icon="@drawable/ic_translate"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp" />
+
+    <!-- Translation Result Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        app:strokeColor="@color/border_light"
+        app:strokeWidth="1dp">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:padding="16dp"
+          android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/translation_placeholder"
+            android:textSize="18sp"
+            android:minHeight="100dp"
+            android:textColor="?android:attr/textColorPrimary" />
+
+        <!-- Audio Play Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_play_audio"
+            style="@style/Widget.App.Button.Primary"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:enabled="false"
+            app:icon="@android:drawable/ic_media_play"
+            app:iconTint="@color/on_primary_light"
+            app:cornerRadius="24dp" />
+
+      </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_history"
+        style="@style/Widget.App.Button.Primary"
+        android:layout_width="193dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="View History"
+        app:icon="@drawable/ic_history"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp" />
 
   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

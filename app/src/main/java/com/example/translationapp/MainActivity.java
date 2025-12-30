@@ -21,6 +21,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.gson.Gson;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -51,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
         String text = "Don't have an account? Sign up";
 
-// Create a SpannableString so we can make only "Sign up" clickable
+        // Create a SpannableString so we can make only "Sign up" clickable
         SpannableString spannableString = new SpannableString(text);
 
-// Find start and end of "Sign up"
+        // Find start and end of "Sign up"
         int start = text.indexOf("Sign up");
         int end = start + "Sign up".length();
 
@@ -75,10 +77,10 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-// Apply the clickable span
+        // Apply the clickable span
         spannableString.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-// Set the text and make links clickable
+        // Set the text and make links clickable
         signupTextView.setText(spannableString);
         signupTextView.setMovementMethod(LinkMovementMethod.getInstance());
         signupTextView.setHighlightColor(Color.TRANSPARENT);
@@ -112,7 +114,9 @@ public class MainActivity extends AppCompatActivity {
 
                     runOnUiThread(() -> {
                         if(response.isSuccessful()) {
-                            // Login successful
+                            // Login successful - save username
+                            Config.saveUsername(MainActivity.this, username);
+
                             Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, TranslationActivity.class);
                             startActivity(intent);
