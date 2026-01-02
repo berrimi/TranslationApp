@@ -11,28 +11,27 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
+        android:layout_marginHorizontal="24dp"
         app:cardBackgroundColor="?attr/colorSurface"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintVertical_bias="0.4">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="32dp">
 
             <!-- App Logo/Title -->
             <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/ic_translation_app"
                 android:contentDescription="App Logo" />
@@ -40,10 +39,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Translation App"
+                android:text="DarijaGenie"
                 android:textAlignment="center"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="28sp"
+                android:textSize="32sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -51,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="32dp"
-                android:text="Login to continue"
+                android:text="Sign in to your account"
                 android:textAlignment="center"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="16sp" />
@@ -96,15 +95,15 @@
 
             <!-- Login Button -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/signup_btn"
+                android:id="@+id/login_btn"
                 style="@style/Widget.App.Button.Primary"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_marginTop="32dp"
                 android:text="Login"
                 app:icon="@drawable/ic_login"
                 app:iconGravity="textStart"
-                app:iconPadding="8dp" />
+                app:iconPadding="12dp" />
 
             <!-- Signup Link -->
             <TextView

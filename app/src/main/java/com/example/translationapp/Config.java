@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Config {
-    public static final String BASE_URL = "http://10.132.42.46:8080/translation-service/api/";
+    public static final String BASE_URL = "http://192.168.1.7:8080/translation-service/api/";
     private static final String PREF_NAME = "TranslationAppPrefs";
     private static final String KEY_USERNAME = "username";
 

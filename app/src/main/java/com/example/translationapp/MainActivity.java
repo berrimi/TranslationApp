@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         username_input = findViewById(R.id.username_input);
         password_input = findViewById(R.id.password_input);
-        login = findViewById(R.id.signup_btn);
+        login = findViewById(R.id.login_btn);
         signupTextView = findViewById(R.id.tv_signup_link);
 
         String text = "Don't have an account? Sign up";
@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
             public void updateDrawState(@NonNull TextPaint ds) {
                 super.updateDrawState(ds);
                 // Use the context from the Activity
-                ds.setColor(MainActivity.this.getResources().getColor(R.color.link_blue, MainActivity.this.getTheme()));
-                ds.setUnderlineText(true); // underline
+                ds.setColor(MainActivity.this.getResources().getColor(R.color.primary_600, MainActivity.this.getTheme()));
+                ds.setUnderlineText(false); // Remove underline for cleaner look
             }
         };
 

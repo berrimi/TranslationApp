@@ -9,151 +9,188 @@
     android:background="?android:attr/colorBackground"
     tools:context=".TranslationActivity">
 
-  <LinearLayout
+  <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical"
-      android:padding="16dp"
-      android:gravity="top">
-
-    <TextView
-        android:id="@+id/tv_instruction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/instruction_translate"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="?android:attr/textColorPrimary"
-        android:layout_marginBottom="8dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.App.TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_type_here">
-
-      <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/et_input_text"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:minHeight="100dp"
-          android:gravity="top"
-          android:inputType="textMultiLine"
-          android:textColor="?android:attr/textColorPrimary" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+      android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical">
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center_horizontal">
 
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="@string/label_to"
-          android:textSize="16sp"
-          android:textColor="?android:attr/textColorSecondary"
-          android:layout_marginStart="16dp" />
+          android:text="Translate"
+          android:textSize="28sp"
+          android:textStyle="bold"
+          android:textColor="?android:attr/textColorPrimary"
+          android:layout_marginTop="16dp"
+          android:layout_marginBottom="24dp" />
 
       <com.google.android.material.textfield.TextInputLayout
           style="@style/Widget.App.TextInputLayout"
-          android:layout_width="150dp"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="@string/default_to_lang"
-          app:endIconMode="dropdown_menu">
+          android:hint="Text to translate"
+          app:boxCornerRadiusTopStart="16dp"
+          app:boxCornerRadiusTopEnd="16dp"
+          app:boxCornerRadiusBottomStart="16dp"
+          app:boxCornerRadiusBottomEnd="16dp">
 
-        <AutoCompleteTextView
-            android:id="@+id/et_to_lang"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_input_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
-            android:minHeight="48dp"
-            android:completionThreshold="0"
-            android:text="@string/default_to_lang"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:minHeight="120dp"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:textColor="?android:attr/textColorPrimary"
+            android:background="@android:color/transparent" />
 
       </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-
-    <!-- Progress Bar -->
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="@style/Widget.App.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:visibility="gone" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_translate"
-        style="@style/Widget.App.Button.Primary"
-        android:layout_width="213dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:text="@string/button_translate"
-        app:icon="@drawable/ic_translate"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp" />
-
-    <!-- Translation Result Card -->
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:cardBackgroundColor="?attr/colorSurface"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="2dp"
-        app:strokeColor="@color/border_light"
-        app:strokeWidth="1dp">
-
-      <LinearLayout
+      <com.google.android.material.card.MaterialCardView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:padding="16dp"
-          android:gravity="center_vertical">
+          android:layout_marginTop="16dp"
+          app:cardBackgroundColor="?attr/colorSurface"
+          app:cardCornerRadius="16dp"
+          app:cardElevation="2dp">
 
-        <TextView
-            android:id="@+id/tv_result"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/translation_placeholder"
-            android:textSize="18sp"
-            android:minHeight="100dp"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp">
 
-        <!-- Audio Play Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_play_audio"
-            style="@style/Widget.App.Button.Primary"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:enabled="false"
-            app:icon="@android:drawable/ic_media_play"
-            app:iconTint="@color/on_primary_light"
-            app:cornerRadius="24dp" />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Target Language:"
+              android:textSize="14sp"
+              android:layout_marginStart="16dp"
+              android:textColor="?android:attr/textColorSecondary" />
 
-      </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+          <com.google.android.material.textfield.TextInputLayout
+              style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:boxStrokeWidth="0dp"
+              app:boxStrokeWidthFocused="0dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_history"
-        style="@style/Widget.App.Button.Primary"
-        android:layout_width="193dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:text="View History"
-        app:icon="@drawable/ic_history"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp" />
+            <AutoCompleteTextView
+                android:id="@+id/et_to_lang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:text="Darija"
+                android:textColor="?android:attr/textColorPrimary" />
 
-  </LinearLayout>
+          </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+
+      <ProgressBar
+          android:id="@+id/progress_bar"
+          style="@style/Widget.App.ProgressBar.Horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:visibility="gone" />
+
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btn_translate"
+          style="@style/Widget.App.Button.Primary"
+          android:layout_width="match_parent"
+          android:layout_height="56dp"
+          android:layout_marginTop="24dp"
+          android:text="Translate Now"
+          app:icon="@drawable/ic_translate"
+          app:iconGravity="textStart"
+          app:iconPadding="12dp" />
+
+      <!-- Translation Result Card -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="24dp"
+          app:cardBackgroundColor="?attr/colorPrimary"
+          app:cardCornerRadius="20dp"
+          app:cardElevation="4dp"
+          app:contentPadding="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Result"
+              android:textSize="12sp"
+              android:textAllCaps="true"
+              android:textStyle="bold"
+              android:textColor="?attr/colorOnPrimary"
+              android:layout_marginBottom="8dp"
+              android:alpha="0.8" />
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="top">
+
+            <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Your translation will appear here"
+                android:textSize="20sp"
+                android:minHeight="60dp"
+                android:textColor="?attr/colorOnPrimary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_play_audio"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:enabled="false"
+                android:padding="0dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:icon="@android:drawable/ic_media_play"
+                app:iconSize="24dp"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="?attr/colorOnPrimary"
+                app:backgroundTint="#40FFFFFF"
+                app:cornerRadius="24dp" />
+
+          </LinearLayout>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btn_history"
+          style="@style/Widget.MaterialComponents.Button.TextButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="24dp"
+          android:text="View History"
+          android:textColor="@color/primary_600"
+          app:icon="@drawable/ic_history"
+          app:iconPadding="8dp" />
+
+    </LinearLayout>
+  </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
