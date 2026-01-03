@@ -14,6 +14,7 @@ public class Config {
     public static final String BASE_URL = "http://192.168.1.7:8080/translation-service/api/";
     private static final String PREF_NAME = "TranslationAppPrefs";
     private static final String KEY_USERNAME = "username";
+    private static final String KEY_REMEMBER_ME = "remember_me";
 
     public static void saveUsername(Context context, String username) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -27,10 +28,23 @@ public class Config {
         return prefs.getString(KEY_USERNAME, null);
     }
 
+    public static void setRememberMe(Context context, boolean remember) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        prefs.edit()
+                .putBoolean(KEY_REMEMBER_ME, remember)
+                .apply();
+    }
+
+    public static boolean isRememberMe(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return prefs.getBoolean(KEY_REMEMBER_ME, false);
+    }
+
     public static void clearUserData(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         prefs.edit()
                 .remove(KEY_USERNAME)
+                .remove(KEY_REMEMBER_ME)
                 .apply();
     }
 

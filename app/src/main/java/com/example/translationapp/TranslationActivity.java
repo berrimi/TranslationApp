@@ -7,13 +7,16 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -36,6 +39,7 @@ public class TranslationActivity extends AppCompatActivity {
   MaterialButton btnPlayAudio;
   TextView tvResult;
   ProgressBar progressBar;
+  ImageButton btnLogout, btnSettings;
 
   private AudioPlayer audioPlayer;
   private String currentTranslation;
@@ -46,6 +50,10 @@ public class TranslationActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_translation);
 
+    // Setup Toolbar
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
+
     inputText = findViewById(R.id.et_input_text);
     toLang = findViewById(R.id.et_to_lang);
     btnTranslate = findViewById(R.id.btn_translate);
@@ -53,6 +61,8 @@ public class TranslationActivity extends AppCompatActivity {
     btnPlayAudio = findViewById(R.id.btn_play_audio);
     tvResult = findViewById(R.id.tv_result);
     progressBar = findViewById(R.id.progress_bar);
+    btnLogout = findViewById(R.id.btn_logout);
+    btnSettings = findViewById(R.id.btn_settings);
 
     // Initialize audio player
     audioPlayer = new AudioPlayer(this);
@@ -97,12 +107,6 @@ public class TranslationActivity extends AppCompatActivity {
     btnHistory.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        String username = Config.getUsername(TranslationActivity.this);
-        if (username == null || username.isEmpty()) {
-          Toast.makeText(TranslationActivity.this, "Please login first", Toast.LENGTH_SHORT).show();
-          return;
-        }
-
         // Open History Activity
         Intent intent = new Intent(TranslationActivity.this, HistoryActivity.class);
         startActivity(intent);
@@ -120,6 +124,30 @@ public class TranslationActivity extends AppCompatActivity {
         }
       }
     });
+
+    // Logout Button
+    btnLogout.setOnClickListener(v -> showLogoutConfirmation());
+
+    // Settings Button
+    btnSettings.setOnClickListener(v -> {
+        Intent intent = new Intent(TranslationActivity.this, AccountSettingsActivity.class);
+        startActivity(intent);
+    });
+  }
+
+  private void showLogoutConfirmation() {
+    new MaterialAlertDialogBuilder(this)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to log out?")
+            .setPositiveButton("Logout", (dialog, which) -> {
+                Config.clearUserData(this);
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            })
+            .setNegativeButton("Cancel", null)
+            .show();
   }
 
   private void translateWithAudio(String text, String to, String username) {
@@ -215,29 +243,6 @@ public class TranslationActivity extends AppCompatActivity {
     // Clean up audio player
     if (audioPlayer != null) {
       audioPlayer.cleanup();
-    }
-  }
-
-  public static class TranslationResponse {
-    private String translation;
-    private String historyId;
-    private String audio;
-    private String audioFormat;
-
-    public String getTranslation() {
-      return translation;
-    }
-
-    public String getHistoryId() {
-      return historyId;
-    }
-
-    public String getAudio() {
-      return audio;
-    }
-
-    public String getAudioFormat() {
-      return audioFormat;
     }
   }
 }
