@@ -87,4 +87,8 @@ public class Config {
             e.printStackTrace();
         }
     }
+
+    public static boolean isLoggedIn(SplashActivity splashActivity) {
+        return true;
+    }
 }
