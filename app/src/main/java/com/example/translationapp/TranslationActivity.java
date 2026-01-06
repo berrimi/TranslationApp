@@ -2,6 +2,7 @@ package com.example.translationapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -17,11 +18,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -42,8 +43,11 @@ public class TranslationActivity extends AppCompatActivity {
   ImageButton btnLogout, btnSettings;
 
   private AudioPlayer audioPlayer;
+  private TextToSpeech textToSpeech;
   private String currentTranslation;
   private String currentAudioBase64;
+  private boolean isTtsReady = false;
+  private String lastTargetLang = "";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +68,22 @@ public class TranslationActivity extends AppCompatActivity {
     btnLogout = findViewById(R.id.btn_logout);
     btnSettings = findViewById(R.id.btn_settings);
 
-    // Initialize audio player
+    // Initialize audio player for existing network-based audio
     audioPlayer = new AudioPlayer(this);
+
+    // Initialize Native TextToSpeech for Arabic
+    textToSpeech = new TextToSpeech(this, status -> {
+      if (status == TextToSpeech.SUCCESS) {
+        int result = textToSpeech.setLanguage(new Locale("ar"));
+        if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+          isTtsReady = false;
+        } else {
+          isTtsReady = true;
+        }
+      } else {
+        isTtsReady = false;
+      }
+    });
 
     String[] languages = new String[] { "Darija", "English", "French", "Spanish", "Arabic" };
     ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -92,36 +110,42 @@ public class TranslationActivity extends AppCompatActivity {
         return;
       }
 
-      // Get username from shared preferences
-      String username = Config.getUsername(TranslationActivity.this);
+      // Store target language for audio playback logic
+      lastTargetLang = to;
 
-      // Reset audio
+      // Reset audio state
       currentAudioBase64 = null;
       btnPlayAudio.setEnabled(false);
+      btnPlayAudio.setAlpha(0.5f);
 
-      // Start translation with audio
-      translateWithAudio(text, to, username);
+      // Start translation
+      translateWithAudio(text, to, Config.getUsername(this));
     });
 
     // Add history button click listener
-    btnHistory.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        // Open History Activity
-        Intent intent = new Intent(TranslationActivity.this, HistoryActivity.class);
-        startActivity(intent);
-      }
+    btnHistory.setOnClickListener(v -> {
+      Intent intent = new Intent(TranslationActivity.this, HistoryActivity.class);
+      startActivity(intent);
     });
 
-    // Add audio play button listener
-    btnPlayAudio.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        if (currentAudioBase64 != null && !currentAudioBase64.isEmpty()) {
-          audioPlayer.playAudio(currentAudioBase64);
+    // Play button logic
+    btnPlayAudio.setOnClickListener(v -> {
+      String textToSpeak = tvResult.getText().toString().trim();
+      
+      if (textToSpeak.isEmpty() || textToSpeak.equals("Translating...") || textToSpeak.contains("Your translation will appear here")) return;
+
+      String langLower = lastTargetLang.toLowerCase();
+      // Treat Darija as Arabic for TTS
+      if (langLower.contains("arabic") || langLower.contains("darija")) {
+        if (isTtsReady && textToSpeech != null) {
+          textToSpeech.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "ArabicTTS");
         } else {
-          Toast.makeText(TranslationActivity.this, "No audio available", Toast.LENGTH_SHORT).show();
+          Toast.makeText(this, "Arabic TTS is not ready", Toast.LENGTH_SHORT).show();
         }
+      } else if (currentAudioBase64 != null && !currentAudioBase64.isEmpty()) {
+        audioPlayer.playAudio(currentAudioBase64);
+      } else {
+        Toast.makeText(this, "No audio available for " + lastTargetLang, Toast.LENGTH_SHORT).show();
       }
     });
 
@@ -151,87 +175,50 @@ public class TranslationActivity extends AppCompatActivity {
   }
 
   private void translateWithAudio(String text, String to, String username) {
-    // Show progress
     progressBar.setVisibility(View.VISIBLE);
     tvResult.setText("Translating...");
 
-    OkHttpClient client = new OkHttpClient();
-
-    // Build translation URL with audio parameter
     HttpUrl.Builder urlBuilder = HttpUrl.parse(Config.BASE_URL + "translate").newBuilder();
     urlBuilder.addQueryParameter("text", text);
     urlBuilder.addQueryParameter("to", to);
-    urlBuilder.addQueryParameter("includeAudio", "true");  // Request audio
-
-    // Add username if available
-    if (username != null && !username.isEmpty()) {
-      urlBuilder.addQueryParameter("username", username);
+    
+    String toLower = to.toLowerCase();
+    // Don't request server audio for languages we handle locally with TTS
+    if (!toLower.contains("arabic") && !toLower.contains("darija")) {
+        urlBuilder.addQueryParameter("includeAudio", "true");
     }
+    if (username != null) urlBuilder.addQueryParameter("username", username);
 
-    String url = urlBuilder.build().toString();
-
-    Request request = new Request.Builder()
-            .url(url)
-            .get()
-            .build();
-
-    client.newCall(request).enqueue(new Callback() {
+    new OkHttpClient().newCall(new Request.Builder().url(urlBuilder.build()).get().build()).enqueue(new Callback() {
       @Override
       public void onFailure(Call call, IOException e) {
         runOnUiThread(() -> {
           progressBar.setVisibility(View.GONE);
           tvResult.setText("Error: " + e.getMessage());
-          Toast.makeText(TranslationActivity.this, "Translation failed", Toast.LENGTH_SHORT).show();
         });
       }
 
       @Override
       public void onResponse(Call call, Response response) throws IOException {
-        runOnUiThread(() -> progressBar.setVisibility(View.GONE));
+        if (response.isSuccessful() && response.body() != null) {
+          try {
+            JsonObject json = JsonParser.parseString(response.body().string()).getAsJsonObject();
+            String translation = json.get("translation").getAsString();
+            if (json.has("audio")) currentAudioBase64 = json.get("audio").getAsString();
 
-        if (response.isSuccessful()) {
-          ResponseBody responseBody = response.body();
-          if (responseBody != null) {
-            String responseBodyString = responseBody.string();
-
-            try {
-              // Parse JSON response
-              JsonObject jsonResponse = JsonParser.parseString(responseBodyString).getAsJsonObject();
-
-              // Get translation
-              String translatedText = jsonResponse.get("translation").getAsString();
-              currentTranslation = translatedText;
-
-              // Check if audio is included in response
-              if (jsonResponse.has("audio")) {
-                currentAudioBase64 = jsonResponse.get("audio").getAsString();
-              }
-
-              runOnUiThread(() -> {
-                tvResult.setText(translatedText);
-
-                // Enable audio button if audio is available
-                if (currentAudioBase64 != null && !currentAudioBase64.isEmpty()) {
-                  btnPlayAudio.setEnabled(true);
-                  btnPlayAudio.setAlpha(1.0f);
-                } else {
-                  btnPlayAudio.setEnabled(false);
-                  btnPlayAudio.setAlpha(0.5f);
-                }
-              });
-
-            } catch (Exception e) {
-              runOnUiThread(() -> {
-                tvResult.setText("Error parsing response");
-                Toast.makeText(TranslationActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
-              });
-            }
+            runOnUiThread(() -> {
+              progressBar.setVisibility(View.GONE);
+              tvResult.setText(translation);
+              
+              // FORCE ENABLE BUTTON
+              btnPlayAudio.setEnabled(true);
+              btnPlayAudio.setAlpha(1.0f);
+            });
+          } catch (Exception e) {
+            runOnUiThread(() -> progressBar.setVisibility(View.GONE));
           }
         } else {
-          runOnUiThread(() -> {
-            tvResult.setText("Error: " + response.message());
-            Toast.makeText(TranslationActivity.this, "Translation failed", Toast.LENGTH_SHORT).show();
-          });
+            runOnUiThread(() -> progressBar.setVisibility(View.GONE));
         }
       }
     });
@@ -240,9 +227,10 @@ public class TranslationActivity extends AppCompatActivity {
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    // Clean up audio player
-    if (audioPlayer != null) {
-      audioPlayer.cleanup();
+    if (audioPlayer != null) audioPlayer.cleanup();
+    if (textToSpeech != null) {
+      textToSpeech.stop();
+      textToSpeech.shutdown();
     }
   }
 }

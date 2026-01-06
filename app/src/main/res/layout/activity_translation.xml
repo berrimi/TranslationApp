@@ -38,8 +38,8 @@
                   android:layout_height="48dp"
                   android:background="?attr/selectableItemBackgroundBorderless"
                   android:contentDescription="Settings"
-                  android:src="@android:drawable/ic_menu_manage"
-                  app:tint="?android:attr/textColorPrimary" />
+                  android:src="@drawable/ic_settings"
+                  app:tint="@color/primary_600" />
 
               <ImageButton
                   android:id="@+id/btn_logout"
@@ -181,7 +181,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal"
-              android:gravity="top">
+              android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/tv_result"
@@ -191,11 +191,13 @@
                 android:text="Your translation will appear here"
                 android:textSize="20sp"
                 android:minHeight="60dp"
+                android:gravity="center_vertical"
                 android:textColor="?attr/colorOnPrimary" />
 
+            <!-- Integrated Play Audio Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_play_audio"
-                style="@style/Widget.MaterialComponents.Button.Icon"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
@@ -206,12 +208,11 @@
                 android:insetRight="0dp"
                 android:insetBottom="0dp"
                 app:icon="@android:drawable/ic_media_play"
-                app:iconSize="24dp"
+                app:iconSize="32dp"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
                 app:iconTint="?attr/colorOnPrimary"
-                app:backgroundTint="#40FFFFFF"
-                app:cornerRadius="24dp" />
+                app:rippleColor="#4DFFFFFF" />
 
           </LinearLayout>
         </LinearLayout>
